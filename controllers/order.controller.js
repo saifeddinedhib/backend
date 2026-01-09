@@ -114,8 +114,6 @@ const deleteOrderByIdController = async (req, res) => {
     }
 }
 
-
-
 module.exports = {
     createOrderController,
     getAllOrderController,

@@ -10,27 +10,21 @@ const createPersonService = async (data) => {
     return await person.save();
 }
 
-const getAllpersonservice = async()=>{
+const getAllpersonservice = async () => {
     return await Person.find({});
 }
 
-const getPersonByIdservice = async(id)=>{
-     return await Person.findById(id);
+const getPersonByIdservice = async (id) => {
+    return await Person.findById(id);
 }
 
-const deletePersonByIdService = async(id)=>{
+const deletePersonByIdService = async (id) => {
     return Person.findByIdAndDelete(id);
-
 }
 
-const updatePersonByIdService= async(id, data)=>{
-    return await Person.findByIdAndUpdate(id,data,{new:true})
+const updatePersonByIdService = async (id, data) => {
+    return await Person.findByIdAndUpdate(id, data, { new: true })
 }
-
-
-// UpdatePersonByID
-
-
 
 module.exports = {
     createPersonService,
@@ -39,5 +33,4 @@ module.exports = {
     getPersonByIdservice,
     deletePersonByIdService,
     updatePersonByIdService
-    
 };

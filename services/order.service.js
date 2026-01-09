@@ -17,15 +17,9 @@ const updateOrderByIdService= async(id, data)=>{
     return await Order.findByIdAndUpdate(id,data,{new:true})
 }
 
-
 const deleteOrderByIdservice=async(id)=>{
     return await Order.findByIdAndDelete(id);
 }
-
-
-
-
-
 
 module.exports = {
     createOrderService,

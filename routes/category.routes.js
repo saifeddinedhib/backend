@@ -7,17 +7,14 @@ const{createCategoryController,
     deleteCategoryByIdController
 }=require('../controllers/category.controller')
 const{validateCreateCategory,
-    validId
+    validId,
+    validateUpdateCategory
 }=require('../midlewares/category.middleware')
 
-router.post('/new',validateCreateCategory,createCategoryController)
-router.get('/:id',validId,getCategoryByIdController)
-router.get('/',getAllCategoryController)
-router.put('/:id',validId,updateCategoryByIdController)
-router.delete('/:id',validId,deleteCategoryByIdController)
-
-
-
-
+router.post('/new', validateCreateCategory, createCategoryController)
+router.get('/:id', validId,getCategoryByIdController)
+router.get('/', getAllCategoryController)
+router.put('/:id', validId, validateUpdateCategory, updateCategoryByIdController)
+router.delete('/:id', validId, deleteCategoryByIdController)
 
 module.exports = router;
