@@ -1,4 +1,3 @@
-const Category = require('../models/category.model');
 const { CreateCategoryService,
     getCategoryByIdservice,
     getAllCategoryservice,
