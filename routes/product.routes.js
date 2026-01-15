@@ -11,10 +11,12 @@ const {
     validId, validUpdateProduct
 } = require('../midlewares/product.middleware');
 
-router.get('/:id', validId, getproductByIdController);
-router.post('/new', validateCreateProduct, createProductController);
+const {isAuthenticated,isAdmin} = require('../midlewares/authentication.middleware')
+
+router.get('/:id', validId, isAuthenticated,  getproductByIdController);
+router.post('/new', validateCreateProduct, isAuthenticated, isAdmin, createProductController);
 router.get('/', getAllProductController)
-router.put('/:id', validId, validUpdateProduct, updateProductByIdController)
-router.delete('/:id',validId,deleteProductByIdController)
+router.put('/:id', validId, validUpdateProduct, isAuthenticated,isAdmin, updateProductByIdController)
+router.delete('/:id',validId, isAuthenticated,isAdmin, deleteProductByIdController)
 
 module.exports = router;

@@ -11,10 +11,13 @@ const{validateCreateCategory,
     validateUpdateCategory
 }=require('../midlewares/category.middleware')
 
-router.post('/new', validateCreateCategory, createCategoryController)
-router.get('/:id', validId,getCategoryByIdController)
-router.get('/', getAllCategoryController)
-router.put('/:id', validId, validateUpdateCategory, updateCategoryByIdController)
-router.delete('/:id', validId, deleteCategoryByIdController)
+const {isAuthenticated,isAdmin}= require('../midlewares/authentication.middleware')
+
+
+router.post('/new', validateCreateCategory, isAuthenticated, isAdmin,  createCategoryController)
+router.get('/:id', validId, isAuthenticated, isAdmin, getCategoryByIdController)
+router.get('/', isAuthenticated, isAdmin, getAllCategoryController)
+router.put('/:id', validId, validateUpdateCategory,isAdmin,  updateCategoryByIdController)
+router.delete('/:id', validId,isAdmin, deleteCategoryByIdController)
 
 module.exports = router;

@@ -9,11 +9,12 @@ const { createPersonController,
 const { validateCreatePerson,
         validId
  } = require('../midlewares/person.middleware');
+ const {isAdmin}= require('../midlewares/authentication.middleware')
 
-router.post('/new', validateCreatePerson, createPersonController);
+router.post('/new', validateCreatePerson,isAdmin, createPersonController);
 router.get('/' ,getAllPersonController)
-router.get('/:id', validId,getPersonByIdController)
-router.delete('/:id',validId,deletePersonByIdController)
-router.put('/:id',validId,updatePersonByIdController)
+router.get('/:id', validId, isAdmin, getPersonByIdController)
+router.delete('/:id',validId, isAdmin, deletePersonByIdController)
+router.put('/:id',validId, isAdmin, updatePersonByIdController)
 
 module.exports = router;

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-
+const jwt = require('jsonwebtoken')
 
 const validateSignIn=(req,res,next)=>{
     const {email, password}=req.body;
@@ -18,9 +18,32 @@ const validateSignIn=(req,res,next)=>{
 
 }
 
+const isAuthenticated=(req,res,next)=>{
+    const token = req.headers.authorization;
 
+    if(!token){
+        return res.status(401).json({message:"no token provided"});
+    }
+
+    const SECRET_KEY = process.env.SECRET_KEY;
+    jwt.verify(token,SECRET_KEY,(err, decoded)=>{
+        if(err){
+            return res.status(401).json({message:"invalid token"});
+        }
+        req.user = decoded;
+        next();
+    });
+}
+
+const isAdmin=(req,res,next)=>{
+    if(req.user.role !== 'ADMIN'){
+        return res.status(403).json({message:"access denied only Admin ."})
+    }
+    next();
+}
 
 module.exports={
-    validateSignIn
-
+    validateSignIn,
+    isAuthenticated,
+    isAdmin
 }
