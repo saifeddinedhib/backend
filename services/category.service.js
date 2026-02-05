@@ -1,30 +1,36 @@
-const Category = require('../models/category.model')
+const Category = require("../models/category.model");
 
-const CreateCategoryService = async (data)=>{
-     const category = new Category(data);
-    return await category.save();
-}
+const getCategoryByNameService = async (name) => {
+  return await Category.findOne({ name });
+};
 
-const getCategoryByIdservice = async (id) => {
-    return await Category.findById(id);
-}
+const createCategoryService = async (data) => {
+  const category = new Category(data);
+  return await category.save();
+};
 
-const getAllCategoryservice = async () => {
-    return await Category.find({});
-}
+const getAllCategoryService = async () => {
+  return await Category.find({});
+};
 
-const updateCategoryByIdService= async(id, data)=>{
-    return await Category.findByIdAndUpdate(id,data,{new:true})
-}
+const getCategoryByIdService = async (id) => {
+  return await Category.findById(id);
+};
 
-const deleteCategoryByIdservice=async(id)=>{
-    return await Category.findByIdAndDelete(id);
-}
+const deleteCategoryByIdService = async (id) => {
+  return await Category.findByIdAndDelete(id);
+};
 
-module.exports ={
-    CreateCategoryService,
-    getCategoryByIdservice,
-    getAllCategoryservice,
-    updateCategoryByIdService,
-    deleteCategoryByIdservice
-}
+const updateCategoryByIdService = async (id, data) => {
+  return await Category.findByIdAndUpdate(id, data, { new: true });
+}; 
+
+
+module.exports = {
+  createCategoryService,
+  getCategoryByNameService,
+  getAllCategoryService,
+  getCategoryByIdService,
+  deleteCategoryByIdService,
+  updateCategoryByIdService,
+};

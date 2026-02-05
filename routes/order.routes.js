@@ -1,24 +1,23 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const { 
-    createOrderController,
-    getAllOrderController,
-    getOrderByIdController,
-    updateOrderByIdController,
-    deleteOrderByIdController
-     } = require('../controllers/order.controller');
-const { 
-    validateCreateOrder,
-    validId,
-    validUpdateOrder
- } = require('../midlewares/order.middleware');
- 
- const {isAdmin}=require('../midlewares/authentication.middleware')
+const {
+  createOrderController,
+  getAllOrderController,
+  getOrderByIdController,
+  updateOrderByIdController,
+  deleteOrderByIdController,
+} = require("../controllers/order.controller");
+const {
+  validateCreateOrder,
+  validId,
+  validUpdateOrder,
+} = require("../middlewares/order.middleware");
 
-router.post('/new',validateCreateOrder  , createOrderController);
-router.get('/', getAllOrderController);
-router.get('/:id', validId, isAdmin, getOrderByIdController)
-router.delete('/:id', validId,isAdmin, deleteOrderByIdController)
-router.put('/:id', validId, validUpdateOrder, isAdmin, updateOrderByIdController)
+const { isAdmin } = require("../middlewares/authentication.middleware");
+router.post("/new", validateCreateOrder, createOrderController);
+router.get("/", getAllOrderController);
+router.get("/:id", validId, getOrderByIdController);
+router.delete("/:id", validId, isAdmin, deleteOrderByIdController);
+router.put("/:id", validId, validUpdateOrder, updateOrderByIdController);
 
 module.exports = router;

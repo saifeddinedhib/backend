@@ -1,22 +1,37 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const { createProductController
-    , getproductByIdController
-    , getAllProductController,
-    updateProductByIdController,
-    deleteProductByIdController
- } = require('../controllers/product.controller');
 const {
-    validateCreateProduct,
-    validId, validUpdateProduct
-} = require('../midlewares/product.middleware');
+  createProductController,
+  getProductByIdController,
+  getAllProductsController,
+  updateProductsByIdController,
+  deleteProductByIdController,
+} = require("../controllers/product.controller");
+const {
+  validateCreateProduct,
+  validId,
+} = require("../middlewares/product.middleware");
+const {
+  isAuthenticated,
+  isAdmin,
+} = require("../middlewares/authentication.middleware");
 
-const {isAuthenticated,isAdmin} = require('../midlewares/authentication.middleware')
-
-router.get('/:id', validId, isAuthenticated,  getproductByIdController);
-router.post('/new', validateCreateProduct, isAuthenticated, isAdmin, createProductController);
-router.get('/', getAllProductController)
-router.put('/:id', validId, validUpdateProduct, isAuthenticated,isAdmin, updateProductByIdController)
-router.delete('/:id',validId, isAuthenticated,isAdmin, deleteProductByIdController)
+router.post(
+  "/new",
+  validateCreateProduct,
+  createProductController
+);
+router.get("/:id", validId, getProductByIdController);
+router.get("/", getAllProductsController);
+router.put(
+  "/:id",
+  validId,
+  updateProductsByIdController
+);
+router.delete(
+  "/:id",
+  validId,
+  deleteProductByIdController
+);
 
 module.exports = router;

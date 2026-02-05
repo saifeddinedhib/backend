@@ -1,20 +1,30 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const { createPersonController, 
-        getAllPersonController,
-        getPersonByIdController,
-        deletePersonByIdController,
-        updatePersonByIdController
-    } = require('../controllers/person.controller')
-const { validateCreatePerson,
-        validId
- } = require('../midlewares/person.middleware');
- const {isAdmin}= require('../midlewares/authentication.middleware')
+const {
+  createPersonController,
+  getPersonByIdController,
+  getAllPersonsController,
+  deletePersonByIdController,
+  updatePersonsByIdController,
+} = require("../controllers/person.controller");
+const {
+  validId,
+  validateUpdatePerson,
+} = require("../middlewares/person.middleware");
 
-router.post('/new', validateCreatePerson,isAdmin, createPersonController);
-router.get('/' ,getAllPersonController)
-router.get('/:id', validId, isAdmin, getPersonByIdController)
-router.delete('/:id',validId, isAdmin, deletePersonByIdController)
-router.put('/:id',validId, isAdmin, updatePersonByIdController)
+const { isAdmin } = require("../middlewares/authentication.middleware");
+
+router.post("/new", createPersonController);
+router.get("/:id", validId, isAdmin, getPersonByIdController);
+router.get("/", getAllPersonsController);
+router.delete("/:id", validId, deletePersonByIdController);
+console.log("33333333333333333333333333333333333333")
+
+router.put(
+  "/:id",
+  validId,
+  validateUpdatePerson,
+  updatePersonsByIdController
+);
 
 module.exports = router;

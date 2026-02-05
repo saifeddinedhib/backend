@@ -1,71 +1,134 @@
-const { CreateCategoryService,
-    getCategoryByIdservice,
-    getAllCategoryservice,
-    updateCategoryByIdService,
-    deleteCategoryByIdservice
-} = require('../services/category.service');
+const {
+  createCategoryService,
+  getCategoryByNameService,
+  getAllCategoryService,
+  getCategoryByIdService,
+  deleteCategoryByIdService,
+  updateCategoryByIdService,
+} = require("../services/category.service");
 
 const createCategoryController = async (req, res) => {
-    try {
-        const data = req.body;
-        const newCategory = await CreateCategoryService(data);
-        return res.status(201).json(newCategory);
-    } catch (error) {
-        return res.status(500).json({ message: `failed to create Category:${error.message}` });
+  try {
+    const data = req.body;
+    const existingCategory = await getCategoryByNameService(data.name);
+    if (existingCategory) {
+      return res
+        .status(409)
+        .json({ error: "Category with this name already exists" });
     }
+
+    const newCategory = await createCategoryService(data);
+    res.status(201).json(newCategory);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: `Failed to create category: ${error.message}` });
+  }
+};
+
+const getAllCategoryController = async (req, res) => {
+  try {
+    const categories = await getAllCategoryService();
+    return res.status(200).json(categories);
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ error: `Failed to create category : ${error.message}` });
+  }
 };
 
 const getCategoryByIdController = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const category = await getCategoryByIdservice(id);
-        if (!category) {
-            return res.status(204).json({ message: 'no Category found with this' })
-        }
-        return res.status(200).json(category);
-    } catch (error) {
-        return res.status(500).json({ message: `failed to get Category${error.message}` })
+  try {
+    const { id } = req.params;
+    const category = await getCategoryByIdService(id);
+    if (!category) {
+      return res
+        .status(204)
+        .json({ message: "No category found with the given id " });
     }
-}
+    return res.status(200).json(category);
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ error: `Failed to create category : ${error.message}` });
+  }
+};
 
-const getAllCategoryController = async (req, res) => {
-    try {
-        const Categories = await getAllCategoryservice();
-        return res.status(200).json(Categories);
-    } catch (error) {
-        return res.status(500).json({ message: `failed to get Category:${error.message}` });
+const getCategoryByNameController = async (req, res) => {
+  try {
+    const { name } = req.params;
+    const category = await getCategoryByNameService(name);
+    if (!category) {
+      return res
+        .status(204)
+        .json({ message: "No category found with the given name " });
     }
-}
-
-const updateCategoryByIdController = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const data = req.body;
-        const UpdateCategory = await updateCategoryByIdService(id, data);
-
-        if (!UpdateCategory) {
-            return res.status(204).json({ message: 'no Category found with the given id to update' })
-        }
-        return res.status(200).json(UpdateCategory);
-    } catch (error) {
-        return res.status(500).json({ message: `failed to update Category:${error.message}` });
-    }
-}
+    return res.status(200).json(category);
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ error: `Failed to create category : ${error.message}` });
+  }
+};
 
 const deleteCategoryByIdController = async (req, res) => {
-    try {
-        const { id } = req.params;
-        await deleteCategoryByIdservice(id);
-        return res.status(200).json({ message: 'category is deleted' });
-    } catch (error) {
-        return res.status(500).json({ message: `failed to delete category:${error.message}` })
+  try {
+    const { id } = req.params;
+    const deleteCategory = await deleteCategoryByIdService(id);
+    if (!deleteCategory) {
+      return res.status(204).json({});
     }
+
+    return res.status(200).json({ message: "deleted" });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ error: `Failed to delete category : ${error.message}` });
+  }
+};
+
+const updateCategoriesByIdController = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const data = req.body;
+    const updateCategory = await updateCategoryByIdService(id, data);
+
+    if (!updateCategory) {
+      return res
+        .status(204)
+        .json({ error: `Failed to update category : ${error.message}` });
+    }
+    return res.status(200).json(updateCategory);
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ error: `Failed to update category : ${error.message}` });
+  }
+};
+
+const getCategoryNameByIdController = async(req,res)=>{
+  try {
+    const { id } = req.params;
+    const category = await getCategoryByIdService(id);
+    if (!category) {
+      return res
+        .status(204)
+        .json({ message: "No category found with the given id " });
+    }
+    return res.status(200).json(category.name);
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ error: `Failed to create category : ${error.message}` });
+  }
 }
 
 module.exports = {
-    createCategoryController,
-    getCategoryByIdController,
-    getAllCategoryController,
-    updateCategoryByIdController,
-    deleteCategoryByIdController
-}
+  createCategoryController,
+  getAllCategoryController,
+  getCategoryByIdController,
+  getCategoryByNameController,
+  deleteCategoryByIdController,
+  updateCategoriesByIdController,
+  getCategoryNameByIdController
+};

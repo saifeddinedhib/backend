@@ -1,48 +1,52 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const personSchema=new mongoose.Schema({
-    name:{
-        type:String,
-        required:true
-    },
-    age:{
-        type:Number,
-        required:true,
-        min:0
-    },
-    favoritefoods:{
-        type:[String],
-        default:['loubia']
-    },
-    email:{
-        type:String,
-        required:true,
-        unique:true
-    },
-    password:{
-        type:String,
-        required:true,
-        minlenght:6
-    },
-    phone:{
-        type:String,
-        required:true,
-    },
-    deliveryAddress:{
-        type:String,
-        required:true
-    },
-    image:{
-        type:String,
-        deafult:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPIAAACUCAMAAACeG4TRAAAAOVBMVEXR1dr////O0tj7+/z///3T1Nr29vfL0dXr7O7x8vPg5ObZ3OD4+fnv7/HLz9Xo6Ovi4ufk6u3q8PJ6bioXAAAEgklEQVR4nO2d63LjIAyFQTY2F1+SvP/Drp22GzebC0iO8WH9zWynP7YznAGBEJKs1MHBwcHBwcESovlnCNff8w5lC4wJwXtrnWsa5+zocw/ow5AKo3WdXlC5U+5RfQ5j1Plbbl0vVV9yj+xTUOgr/ZC6zz22TzBZcPNY75WmwE0s9C8E61rbIfcI18Y/WdI3zcHkHuO69PVrxROOfo7rInBvBc+anbv4QkQbV7+fZH09uKrmVILm4eXG9Q8XfA+UzkmKp/MqgGs24c1e/UCzgdZszCsH5CE1ul8ypiqesW3uYfOhl17m83kOuQcu4MSZ5NmccX0xziTPeFhzDkzF2uUeORvLldzBWjNXMe7KZq9rrUfM/YvY61rrHlNym+xr3gA15pavGFWywJQ1pgNGTNcLWfKoo6IhBUlWNi4AVJDkISrK9wzI17mBe6fAlUzde2GlSRZ4IodkFGSSIXdsmWTI1IL/UbLokIJc2DJXBFIy9QKHE/PySFZwrWgwJXu2YK0dpGRRiMBhxr4EMV1tc4+dBQ0CySNiHJv8KPBFHKKP7TtJUGQ6pvDmWeSIzHi0h3XWY/ovHJhkOokuFTMdmGQVRGGgQzIGcltGk0zyHbsBk6xUWurmAy5oksmKHJEJi+aLECuvbwnc9ZHe1Ra8JbcCBtItG6/ApBVu2Yi5q6IkAkBTVtKXR8iURpLEvirESVZq4Ke6VYhBkSvcGyRmFPuKObHsGbq4IjiO24l4Pt1gedqwhjzD87SBKyvmg4pjzIQsmeVp93je9RJiRApQiwy+4QR3c49ZiFHJkiG96yWUfIcccw9ZSvLlAvRCsSQ1FwrzMf0XJm2aC5jkCZ+SGQRaE3ZPwg7moJ3NvyQUbsP3Xvhh9rSj1nZVimI1v0NGSS5IcWSZGNrz6kvikhur3MNckzYunzP3MNekjWubk3uYa9LGhbRzD3NN2kuU5CKczW8iiw6Kkhznf0FHc++IfIU8F+SKRMZ2S2pNGdnoDPox6o5IyVU5s2xi04MKkhwbwC8jQDBjYuMi4A8VC6If4/piro/RdXHFXB8TcrPhclUfk/Ku3pURC0qK3Tv8nrpzQCQhcl/jx3UpPZUTXXNIrtue/vsJuJGwGePi13ei6x60M7hpfaM5tfnTn1SXMMA5n2YQVkr1WKvbGF7C12+swploMkFcGHZlhIn/BUHP0d90Z4QTi4IV1/EuaMZ927QxbbisKfhL9J5tejDPvp8kohuH3WpezYbvqXYaLpE01XhLs7uXDAqj/CB+jfN7uleSGsVF6RH0YTdfIiK/jufxlqrfxzE9rORqxYm22Sd68qbFtdmJokPu0gvPuh/yqWvtcq5umte0rPtRuubp3zmfZP/pg+kZLqgcq9vI+2jw6cYMFs37cNJ62HZrizbyVk9Cmq2nWdhpYBXNm8ZMjKTH5mpsqZnSv+v3ETbs1pn+Xb8PsVnvSsknhFZmoxBRK27/sx7dRjlEcWm327BJhCj/ibxkm+8j7seS9UaBwMyO5j39BpJ34YXc2MAf2dEJ9UXi8/sfZFo2ZBgNW0UAAAAASUVORK5CYII="
-    },
-    role:{
-        type:String,
-        enum:['CUSTOMER','ADMIN'],
-        default:'CUSTOMER'
-    }
-})
+const personSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
 
-const Person = mongoose.model('Person', personSchema)
+  age: {
+    type: Number,
+    required: true,
+    min: 0,
+  },
 
+  favoriteFoods: {
+    type: [String],
+    default: ["pizza"],
+  },
+
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+
+  password: {
+    type: String,
+    required: true,
+    minlength: 4,
+  },
+  phone: {
+    type: String,
+    required: true,
+  },
+  deliveryAddress: {
+    type: String,
+    required: true,
+  },
+  image: {
+    type: String,
+    default:
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKcAAACUCAMAAADBJsndAAAAYFBMVEXb29v////29vYAAAD7+/vg4ODu7u7m5ubj4+Pz8/Pr6+vY2NjKysrCwsJ3d3eSkpKvr6/S0tKdnZ1QUFBnZ2ekpKRVVVUxMTEjIyM4ODg9PT1dXV0TExOJiYkeHh67u7uX1evNAAADsklEQVR4nO2byXbbMAxFxVkkLStO02ao0/7/X1aSJVlpapsDADo9vCvv/A7AB3CAmqZSqVQqlUqlUqlUKpVKpVKp/Jeo1jitrbVaO9Mq5UsL+oRvlNFcSnZGSq6Nau5La6u3Ejdirbkfpcr9W+Qs1anSAifUhVBulOo7WKlXY3mOaWGVLQ9QOcLbkjKDglk6pL6xwSpHbCGdasm5DdTLixh/lSk7FxjRAkL9KpMdHoNTL8ndNMt0mvFvKlgndUQXC8n9jvVP4TIHoaQ6F6f3otsJH6OT1vXqpPO7EP2P5yiZw1IhU+mN24//2Inn5xfxEKmTtWTNnrPXvWS7X+K9F29trE5JJXMolz9F71/E8dCJ91iZjBkamWNJ2ovjqxBvTP/q4nVKmuKk2eSggd9DYONlMqYpZKpxj7QbZR6HHxE1njigUzN/n3Qm5JwuoOP/PE5pF8ddqlD80mSYZA9i5vWQqBPf8nZenHNEmzSd6N1zcJHkUvIn8Wb8YdclZh7dScuWuB+LUgbYXV7P//Mg9FUdt8B2/LKL7/osmdj70HY5CKu4XecnkE8g6+Yo/OB+AdzKZHLlreAaKc88WzRmS/JxNyDX4Kg6Q6+9qs4wsm2+IlHj+VV0wuUdV+dX8TucTovqI8A6jykTsG/i9vfoS5qL4O6XFFRhwj54QBUmi6wTykjY5w4gI0nsAzzQAsW/YYJJPPo9g4epTAb/ggki8RRX36GPhNegePMAcBLJq5zPdxLRE1JuT6J65Myt9UTvMrmnD9yT5haVI1QSDgnlZJ4q6xPpnid54zqTeqCjHrpRaULpJ1mSvFRkMig+orbIjGV06rHPRBeJcz2x07eY8EXKSevmX/jg3BfL+YIJ2Y4WDeaCu5V8XnqadkZdXaZ3EcuFi3PpdzLsveKb1lm+ESslt6a9n+H5LUoZ45zWzo2fTZRWU6lUKpVElHHaWp7C+OVcS3LRYGz2vaLkGrdZqTZf5Aym1JsbzSikxhlQj/gmKhQL/8gZ/IFZHNBnUIRgngD9bi7rvvMWcIenoCNlOkC59y2uTKi7RrhRC0yhnkAmgFAPNmhxndw1iur0LZmuh5urukXOrQnN4jyRcyWe9NFOKumDbIDTdCEkd1D0Av8RnrjPJ/P6QuLsP9xsYihJVZTURCeSxlvow8lYQm0iapgfSRhrIizxZxK6Z4m0J+ybyIvSRLSRKDv7VmeskYhb5kp0pS/hdpawuysjM9rwcPPncUR2zkI2ii9MEEOeKVw0/B/QeS8zmjw0XgAAAABJRU5ErkJggg==",
+  },
+  role: {
+    type: String,
+    enum: ["CUSTOMER", "ADMIN"],
+    default: "CUSTOMER",
+  },
+});
+
+const Person = mongoose.model("Person", personSchema);
 module.exports = Person;

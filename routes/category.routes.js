@@ -1,23 +1,43 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const{createCategoryController,
-    getCategoryByIdController,
-    getAllCategoryController,
-    updateCategoryByIdController,
-    deleteCategoryByIdController
-}=require('../controllers/category.controller')
-const{validateCreateCategory,
-    validId,
-    validateUpdateCategory
-}=require('../midlewares/category.middleware')
 
-const {isAuthenticated,isAdmin}= require('../midlewares/authentication.middleware')
+const {
+  createCategoryController,
+  getAllCategoryController,
+  getCategoryByIdController,
+  getCategoryByNameController,
+  deleteCategoryByIdController,
+  updateCategoriesByIdController,
+  getCategoryNameByIdController
+} = require("../controllers/category.controller");
+const {
+  validateCreateCategory,
+  validId,
+  validName,
+} = require("../middlewares/category.middleware");
+const {
+  isAuthenticated,
+  isAdmin,
+} = require("../middlewares/authentication.middleware");
 
+router.get("/", getAllCategoryController);
+router.post("/new", validateCreateCategory, createCategoryController);
+router.get("/:id", validId, getCategoryByIdController);
 
-router.post('/new', validateCreateCategory, isAuthenticated, isAdmin,  createCategoryController)
-router.get('/:id', validId, isAuthenticated, isAdmin, getCategoryByIdController)
-router.get('/', isAuthenticated, isAdmin, getAllCategoryController)
-router.put('/:id', validId, validateUpdateCategory,isAdmin,  updateCategoryByIdController)
-router.delete('/:id', validId,isAdmin, deleteCategoryByIdController)
+router.get('/name/:id', validId, getCategoryNameByIdController)
+
+router.get(
+  "/categoryName/:name",
+  validName,
+  getCategoryByNameController
+);
+
+router.delete(
+  "/:id",
+  validId,
+  deleteCategoryByIdController
+);
+
+router.put('/:id', updateCategoriesByIdController)
 
 module.exports = router;
